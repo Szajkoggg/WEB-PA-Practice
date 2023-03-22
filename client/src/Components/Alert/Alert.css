@@ -1,0 +1,42 @@
+.alert-outer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.alert-outer .alert-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  background-color: thistle;
+  border-radius: 5%;
+  padding: 50px;
+}
+.alert-outer .alert-container .button-container {
+  display: flex;
+  align-items: center;
+}
+
+.alert-outer .alert-container .alert-text {
+  margin-bottom: 20%;
+}
+
+.button-container .confirm-button {
+  background-color: red;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.button-container .cancel-button {
+  background-color: gray;
+  margin-right: 5px;
+  cursor: pointer;
+}
