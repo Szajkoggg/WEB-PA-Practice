@@ -19,6 +19,33 @@ if (!mongoUrl) {
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
+const salaryPick = () =>
+  (Math.floor(Math.random() * 1000000 + 350000) / 10000).toFixed() * 10000;
+
+const datePick = () => {
+  let d = new Date(Math.floor(Math.random() * 80000000000 + 1600000000000));
+  let month = "" + (d.getMonth() + 1);
+  let day = "" + d.getDate();
+  let year = d.getFullYear();
+
+  if (month.length < 2) {
+    month = "0" + month;
+  }
+  if (day.length < 2) {
+    day = "0" + day;
+  }
+  return [year, month, day].join("-");
+};
+
+const colorPick = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
 
@@ -27,6 +54,12 @@ const populateEmployees = async () => {
     level: pick(levels),
     position: pick(positions),
     brand: toId(pick(brands)),
+    startingdate: datePick(),
+    color: colorPick(),
+    salary: {
+      current: salaryPick(),
+      desired: salaryPick(),
+    },
   }));
 
   await EmployeeModel.create(...employees);

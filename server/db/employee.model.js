@@ -19,6 +19,18 @@ const EmployeeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "brands",
   },
+  startingdate: {
+    type: String,
+    default: Date.now,
+  },
+  salary: {
+    current: { type: Number, default: 350000 },
+    desired: { type: Number, default: 350000 },
+  },
+  color: {
+    type: String,
+    default: "#ffffff",
+  },
   created: {
     type: Date,
     default: Date.now,

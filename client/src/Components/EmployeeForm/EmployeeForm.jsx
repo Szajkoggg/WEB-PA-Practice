@@ -8,11 +8,17 @@ const EmployeeForm = ({
 }) => {
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(brands);
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
     const employee = entries.reduce((acc, entry) => {
-      const [k, v] = entry;
+      console.log(entry);
+      let [k, v] = entry;
+      if (k === "brand") {
+        let currentBrand = brands.filter((brand) => brand.name === v);
+        v = currentBrand[0]._id;
+      }
       acc[k] = v;
       return acc;
     }, {});
@@ -58,12 +64,12 @@ const EmployeeForm = ({
           name="equipment"
           id="equipment"
         >
-          <option key="none" value="None">
+          <option key="none" defaultValue="None">
             None
           </option>
           {equipments.map((equipment, index) => {
             return (
-              <option key={index} value={equipment.name}>
+              <option key={index} defaultValue={equipment.name}>
                 {equipment.name}
               </option>
             );
@@ -79,12 +85,54 @@ const EmployeeForm = ({
         >
           {brands.map((brand, index) => {
             return (
-              <option key={index} value={brand._id}>
+              <option key={index} defaultValue={brand._id}>
                 {brand.name}
               </option>
             );
           })}
         </select>
+      </div>
+      <div className="control">
+        <label htmlFor="startingdate">Starting Date:</label>
+        <input
+          type="date"
+          min="2017-01-01"
+          max="2030-01-01"
+          defaultValue={employee ? employee.startingdate : null}
+          name="startingdate"
+          id="startingdate"
+        ></input>
+      </div>
+      <div className="control">
+        <label htmlFor="salary.current">Salary:</label>
+        <input
+          type="number"
+          defaultValue={employee ? employee.salary.current : null}
+          name="salary.current"
+          id="salary.current"
+          min="300000"
+          step="10000"
+        />
+      </div>
+      <div className="control">
+        <label htmlFor="salary.desired">Desired Salary:</label>
+        <input
+          type="number"
+          defaultValue={employee ? employee.salary.desired : null}
+          name="salary.desired"
+          id="dsalary.desired"
+          min="350000"
+          step="10000"
+        />
+      </div>
+      <div className="control">
+        <label htmlFor="color">Favorite Color:</label>
+        <input
+          type="color"
+          defaultValue={employee ? employee.color : "#ffffff"}
+          name="color"
+          id="color"
+        />
       </div>
 
       <div className="buttons">
